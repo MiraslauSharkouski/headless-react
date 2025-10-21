@@ -13,12 +13,11 @@ export interface MenuState {
   isExpanded: boolean;
   activeItemId: string | null;
   expandedItems: Set<string>;
-  isMobile: boolean;
 }
 
 export interface MenuContextType extends MenuState {
+  isMobile: boolean;
   toggleExpand: () => void;
   setActiveItem: (id: string) => void;
   toggleSubmenu: (id: string) => void;
-  onResize: () => void;
 }

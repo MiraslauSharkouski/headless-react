@@ -45,7 +45,9 @@ const Menu: React.FC<MenuProps> = ({
     () => ({
       ...menuState,
       isMobile,
-      onResize: () => {}, // Placeholder - resize handled by useIsMobile
+      toggleExpand: menuState.toggleExpand,
+      setActiveItem: menuState.setActiveItem,
+      toggleSubmenu: menuState.toggleSubmenu,
     }),
     [menuState, isMobile]
   );
