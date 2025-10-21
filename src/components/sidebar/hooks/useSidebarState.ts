@@ -1,11 +1,11 @@
-import {
+import React, {
   createContext,
   useContext,
   useState,
   useCallback,
   useMemo,
 } from "react";
-import { SidebarMenuContextType } from "../../../types/sidebar";
+import type { SidebarMenuContextType } from "../../../types/sidebar";
 import { useMediaQuery } from "./useMediaQuery";
 
 const SidebarMenuContext = createContext<SidebarMenuContextType | undefined>(
@@ -49,27 +49,34 @@ export const SidebarMenuProvider: React.FC<{
     });
   }, []);
 
+  const setActiveItemIdCallback = useCallback(
+    (id: string | null) => {
+      setActiveItemId(id);
+      if (onActiveChange) {
+        onActiveChange(id);
+      }
+    },
+    [onActiveChange]
+  );
+
   const contextValue = useMemo(
     () => ({
       isCollapsed,
       toggleCollapse,
       activeItemId,
-      setActiveItemId: (id: string | null) => {
-        setActiveItemId(id);
-        onActiveChange?.(id);
-      },
+      setActiveItemId: setActiveItemIdCallback,
       expandedItems,
       toggleExpanded,
       isMobile,
     }),
     [
       isCollapsed,
-      activeItemId,
-      expandedItems,
-      isMobile,
-      onActiveChange,
       toggleCollapse,
+      activeItemId,
+      setActiveItemIdCallback,
+      expandedItems,
       toggleExpanded,
+      isMobile,
     ]
   );
 

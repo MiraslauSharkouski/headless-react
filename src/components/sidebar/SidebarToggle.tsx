@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { type FC } from "react";
 import { useSidebarMenu } from "./hooks/useSidebarState";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 

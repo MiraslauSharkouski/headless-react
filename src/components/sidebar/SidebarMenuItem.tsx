@@ -1,6 +1,6 @@
-import React, { FC, useCallback, useMemo } from "react";
+import React, { type FC, useCallback, useMemo } from "react";
 import { useSidebarMenu } from "./hooks/useSidebarState";
-import { SidebarItemProps } from "../../types/sidebar";
+import type { SidebarItemProps } from "../../types/sidebar";
 
 /**
  * Компонент пункта меню.
@@ -36,8 +36,8 @@ export const SidebarMenuItem: FC<
     if (hasSubmenu && children) {
       const childItems = React.Children.toArray(children).filter(
         (child): child is React.ReactElement => React.isValidElement(child)
-      );
-      return childItems.some((child) => child.props.isActive);
+      ) as React.ReactElement[];
+      return childItems.some((child) => (child.props as any).isActive);
     }
     return false;
   }, [hasSubmenu, children, isActive]);
