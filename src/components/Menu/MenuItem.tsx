@@ -114,7 +114,7 @@ const MenuItem: React.FC<MenuItemComponentProps> = ({
       if (!isSubmenuHovered) {
         setShowSubmenuTooltip(false);
       }
-    }, 300); // Уменьшил задержку для более быстрого скрытия
+    }, 0); // Уменьшил задержку для более быстрого скрытия
   };
 
   const handleSubmenuMouseEnter = () => {
