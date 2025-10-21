@@ -18,8 +18,9 @@ export interface MenuState {
 
 export interface MenuContextType extends MenuState {
   isMobile: boolean;
-  toggleExpand: () => void;
+  toggleExpand: (parentIdToExpand?: string) => void;
   setActiveItem: (id: string) => void;
   toggleSubmenu: (id: string) => void;
   setHoveredItem: (id: string | null) => void;
+  getMenuParentId: (activeId: string) => string | null; // Added function to find parent ID
 }

@@ -7,7 +7,7 @@ const MenuToggle: React.FC = () => {
   return (
     <button
       className="menu-toggle"
-      onClick={toggleExpand}
+      onClick={() => toggleExpand()}
       onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();

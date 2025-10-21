@@ -194,6 +194,7 @@ const AppContent = () => {
       <div className="menu-wrapper">
         <Menu
           defaultActiveId={initialActiveId}
+          menuItems={menuItems} // Pass the menu items to the Menu component
           onActiveItemChange={(id) => {
             // Обновляем навигацию при изменении активного элемента, если это не совпадает с текущим путем
             const currentPath = location.pathname;

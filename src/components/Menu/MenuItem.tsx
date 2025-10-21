@@ -40,6 +40,8 @@ const MenuItem: React.FC<MenuItemComponentProps> = ({
     toggleSubmenu,
     setHoveredItem,
     isMobile,
+    toggleExpand,
+    getMenuParentId,
   } = useMenu();
 
   // Определяем, находится ли текущий элемент в состоянии hover
@@ -143,14 +145,51 @@ const MenuItem: React.FC<MenuItemComponentProps> = ({
     // Set this item as active
     setActiveItem(id);
 
-    // Only toggle submenu if menu is expanded
+    // If menu is expanded and this item has submenu, toggle submenu
     if (hasSubmenu && isExpanded) {
       toggleSubmenu(id);
+    } else if (hasSubmenu && !isExpanded) {
+      // If menu is collapsed and this item has submenu, show the submenu tooltip
+      setShowSubmenuTooltip(true);
     }
 
     // Call the provided onClick handler
     if (onClick) {
       onClick();
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    switch (e.key) {
+      case "Enter":
+      case " ":
+        e.preventDefault();
+        handleClick();
+        break;
+      case "ArrowRight":
+        if (hasSubmenu && !isExpandedSubmenu) {
+          if (!isExpanded) {
+            // If menu is collapsed, show submenu tooltip instead of expanding the whole menu
+            setShowSubmenuTooltip(true);
+          } else {
+            toggleSubmenu(id);
+          }
+        }
+        break;
+      case "ArrowLeft":
+        if (hasSubmenu && isExpandedSubmenu) {
+          toggleSubmenu(id);
+        } else if (!hasSubmenu && !isExpanded) {
+          // If on a non-submenu item while collapsed, expand the menu
+          toggleExpand();
+        } else if (!hasSubmenu && getMenuParentId(id)) {
+          // If on a submenu item, close its parent submenu
+          const parentId = getMenuParentId(id);
+          if (parentId) {
+            toggleSubmenu(parentId); // This will close the parent submenu
+          }
+        }
+        break;
     }
   };
 
@@ -166,26 +205,7 @@ const MenuItem: React.FC<MenuItemComponentProps> = ({
         onClick={handleClick}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        onKeyDown={(e) => {
-          // Keyboard navigation
-          switch (e.key) {
-            case "Enter":
-            case " ":
-              e.preventDefault();
-              handleClick();
-              break;
-            case "ArrowRight":
-              if (hasSubmenu && !isExpandedSubmenu) {
-                toggleSubmenu(id);
-              }
-              break;
-            case "ArrowLeft":
-              if (hasSubmenu && isExpandedSubmenu) {
-                toggleSubmenu(id);
-              }
-              break;
-          }
-        }}
+        onKeyDown={handleKeyDown}
         tabIndex={0}
       >
         <div className="menu-item-icon">{icon}</div>
@@ -219,12 +239,16 @@ const MenuItem: React.FC<MenuItemComponentProps> = ({
                     className="submenu-tooltip-item"
                     onClick={(e) => {
                       e.stopPropagation();
-                      setActiveItem(subItem.id);
-                      setShowSubmenuTooltip(false); // Закрываем тултип при клике на элемент подменю
-                      setHoveredItem(null); // Сбрасываем состояние hover при клике на элемент подменю
+
+                      // Выполняем действие, связанное с подменю
                       if (subItem.onClick) {
                         subItem.onClick();
                       }
+
+                      // Устанавливаем активный элемент и закрываем тултип
+                      setActiveItem(subItem.id);
+                      setShowSubmenuTooltip(false);
+                      setHoveredItem(null);
                     }}
                   >
                     <div className="submenu-item-icon">{subItem.icon}</div>

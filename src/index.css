@@ -121,6 +121,9 @@ button:focus-visible {
 .submenu-item-label {
   font-size: 13px;
 }
+.submenu-container.collapsed {
+  display: none;
+}
 
 @media (prefers-color-scheme: light) {
   :root {
