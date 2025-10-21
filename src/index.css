@@ -54,6 +54,74 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+.app-container {
+  display: flex;
+  gap: 20px;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.submenu-container {
+  padding-left: 10px;
+}
+
+.menu-item-container {
+  position: relative;
+  cursor: pointer;
+}
+
+/* Стили для тултипа при наведении на элемент меню в свернутом состоянии */
+.menu-item-tooltip {
+  position: absolute;
+  left: 100%;
+  top: 0;
+  background-color: #34495e;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  white-space: nowrap;
+  z-index: 1000;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+  min-width: 150px;
+}
+
+.submenu-tooltip {
+  margin-top: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.submenu-tooltip-item {
+  display: flex;
+  align-items: center;
+  padding: 6px 10px;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: background-color 0.2s;
+}
+
+.submenu-tooltip-item:hover {
+  background-color: #4a637d;
+}
+
+.submenu-item-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+}
+
+.submenu-item-label {
+  font-size: 13px;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

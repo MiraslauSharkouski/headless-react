@@ -8,6 +8,12 @@ const MenuToggle: React.FC = () => {
     <button
       className="menu-toggle"
       onClick={toggleExpand}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          toggleExpand();
+        }
+      }}
       aria-label={isExpanded ? "Collapse menu" : "Expand menu"}
       aria-expanded={isExpanded}
     >

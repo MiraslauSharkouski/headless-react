@@ -48,6 +48,7 @@ const Menu: React.FC<MenuProps> = ({
       toggleExpand: menuState.toggleExpand,
       setActiveItem: menuState.setActiveItem,
       toggleSubmenu: menuState.toggleSubmenu,
+      setHoveredItem: menuState.setHoveredItem,
     }),
     [menuState, isMobile]
   );

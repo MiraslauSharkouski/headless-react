@@ -13,6 +13,7 @@ export interface MenuState {
   isExpanded: boolean;
   activeItemId: string | null;
   expandedItems: Set<string>;
+  hoveredItemId: string | null;
 }
 
 export interface MenuContextType extends MenuState {
@@ -20,4 +21,5 @@ export interface MenuContextType extends MenuState {
   toggleExpand: () => void;
   setActiveItem: (id: string) => void;
   toggleSubmenu: (id: string) => void;
+  setHoveredItem: (id: string | null) => void;
 }
