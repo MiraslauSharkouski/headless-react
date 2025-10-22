@@ -50,6 +50,13 @@ const MenuItem: React.FC<MenuItemComponentProps> = ({
   const isActive = activeItemId === id;
   const isExpandedSubmenu = expandedItems.has(id);
 
+  const hasActiveSubmenu = () => {
+    if (!submenuItems || submenuItems.length === 0) {
+      return false;
+    }
+    return submenuItems.some((subItem) => subItem.id === activeItemId);
+  };
+
   // For handling submenu display on hover in collapsed state
   const [showSubmenuTooltip, setShowSubmenuTooltip] = useState(false);
 
@@ -194,7 +201,11 @@ const MenuItem: React.FC<MenuItemComponentProps> = ({
   };
 
   return (
-    <div className="menu-item-container">
+    <div
+      className={`menu-item-container ${
+        hasActiveSubmenu() ? "has-active-submenu" : ""
+      }`}
+    >
       <div
         id={`menu-item-${id}`}
         className={`menu-item ${isActive ? "active" : ""}`}
@@ -236,7 +247,9 @@ const MenuItem: React.FC<MenuItemComponentProps> = ({
                 {submenuItems.map((subItem) => (
                   <div
                     key={subItem.id}
-                    className="submenu-tooltip-item"
+                    className={`submenu-tooltip-item ${
+                      activeItemId === subItem.id ? "active" : ""
+                    }`}
                     onClick={(e) => {
                       e.stopPropagation();
 

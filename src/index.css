@@ -65,6 +65,23 @@ button:focus-visible {
   gap: 5px;
 }
 
+.menu-item.active {
+  background-color: #3498db;
+  color: white;
+  border-radius: 4px;
+  padding: 6px 10px;
+  transition: background-color 0.3s;
+}
+
+/* Стили для родительского элемента, когда у него есть активный дочерний элемент */
+.menu-item-container.has-active-submenu .menu-item {
+  background-color: #3498db;
+  color: white;
+  border-radius: 4px;
+  padding: 6px 10px;
+  transition: background-color 0.3s;
+}
+
 .submenu-container {
   padding-left: 10px;
 }
@@ -107,6 +124,19 @@ button:focus-visible {
 
 .submenu-tooltip-item:hover {
   background-color: #4a637d;
+}
+
+.menu-item-container
+  .menu-item:has(.submenu-tooltip .submenu-tooltip-item.active) {
+  background-color: #2980b9;
+  color: white;
+  border-radius: 3px;
+}
+
+.submenu-tooltip-item.active {
+  background-color: #2980b9;
+  color: white;
+  border-radius: 3px;
 }
 
 .submenu-item-icon {
