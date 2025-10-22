@@ -74,7 +74,7 @@ button:focus-visible {
 }
 
 /* Стили для родительского элемента, когда у него есть активный дочерний элемент */
-.menu-item-container.has-active-submenu .menu-item {
+.menu-item-container.has-active-submenu > .menu-item {
   background-color: #3498db;
   color: white;
   border-radius: 4px;
@@ -84,6 +84,14 @@ button:focus-visible {
 
 .submenu-container {
   padding-left: 10px;
+}
+
+.submenu .menu-item.active {
+  background-color: #3498db;
+  color: white;
+  border-radius: 4px;
+  padding: 6px 10px;
+  transition: background-color 0.3s;
 }
 
 .menu-item-container {
